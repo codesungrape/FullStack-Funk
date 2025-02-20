@@ -4,12 +4,13 @@ import '@testing-library/jest-dom';
 import BlogCard from './blog-card';
 import { Post } from '@/data/posts';
 import styles from "./blog-card.module.css"
+import Image from 'next/image'
 
 // Mock next/image
 jest.mock('next/image', () => ({
   __esModule: true,
   default: ({ src, alt }: { src: string; alt: string }) => (
-    <img src={src} alt={alt} />
+    <Image src={src} alt={alt} />
   ),
 }));
 

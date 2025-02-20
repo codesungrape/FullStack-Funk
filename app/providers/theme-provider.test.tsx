@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { useTheme, ThemeProvider } from './theme-provider'
 import { act } from 'react-dom/test-utils'
 
