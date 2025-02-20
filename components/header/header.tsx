@@ -15,7 +15,10 @@ export default function Header() {
           Full-stack Funk
         </Link>
         <nav className={styles.nav}>
-          <button onClick={toggleTheme} className={styles.themeToggle}>
+          <button onClick={toggleTheme} 
+          className={styles.themeToggle}
+          aria-label="Toggle theme"
+          >
             {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
           </button>
           
