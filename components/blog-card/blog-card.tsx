@@ -2,25 +2,14 @@
 import Link from "next/link"
 import styles from "./blog-card.module.css"
 import { Post } from "@/data/posts"
+import Image from "next/image"
 
-type BlogCardProps = {
-  title: string
-  excerpt: string
-  author: {
-    name: string
-    avatar: string
-  }
-  date: string
-  readTime: string
-  tags: string[]
-  image: string
-  slug: string
-}
+
 
 export default function BlogCard(post: Post) {
   return (
     <Link href={`/blog/${post.slug}`} className={styles.card}>
-      <img 
+      <Image 
         src={post.image} 
         alt={post.title} 
         className={styles.image}
@@ -30,7 +19,7 @@ export default function BlogCard(post: Post) {
         <p className={styles.excerpt}>{post.excerpt}</p>
         <div className={styles.metadata}>
           <div className={styles.author}>
-            <img src={post.author.avatar} alt={post.author.name} />
+            <Image src={post.author.avatar} alt={post.author.name} />
             <span>{post.author.name}</span>
           </div>
           <time>{post.date}</time>

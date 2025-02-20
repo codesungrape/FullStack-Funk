@@ -3,6 +3,7 @@
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "../../app/providers/theme-provider"
 import styles from "./header.module.css"
+import Link from "next/link"
 
 export default function Header() {
   const { theme, toggleTheme } = useTheme()
@@ -10,9 +11,9 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
-        <a href="/" className={styles.logo}>
+        <Link href="/" className={styles.logo}>
           Full-stack Funk
-        </a>
+        </Link>
         <nav className={styles.nav}>
           <button onClick={toggleTheme} className={styles.themeToggle}>
             {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
