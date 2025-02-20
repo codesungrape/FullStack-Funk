@@ -1,6 +1,6 @@
 // Header.test.tsx
 import '@testing-library/jest-dom';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import Header from './header';
 // import { ThemeProvider } from '../../app/providers/theme-provider';
 
