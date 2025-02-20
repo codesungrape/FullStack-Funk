@@ -2,12 +2,27 @@ import { render, screen } from '@testing-library/react'
 import Home from './page'
 import { posts } from '@/data/posts'
 
+// Define the type for BlogCard props based on usage in the component
+type BlogCardProps = {
+    slug: string
+    title: string
+    image: string
+    excerpt: string
+    author: {
+      name: string
+      avatar: string
+    }
+    date: string
+    readTime: string
+  }
+
 // Mock the components and modules
 jest.mock('@/components/blog-card/blog-card', () => {
-  return function MockBlogCard(props: any) {
+  return function MockBlogCard(props: BlogCardProps) {
     return <div data-testid="blog-card" {...props} />
   }
 })
+
 
 jest.mock('@/components/page-layout/page-layout', () => {
   return function MockLayout({ children }: { children: React.ReactNode }) {
