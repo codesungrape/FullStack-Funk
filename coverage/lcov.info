@@ -93,11 +93,11 @@ TN:
 SF:components/blog-card/blog-card.tsx
 FN:9,BlogCard
 FNF:1
-FNH:1
-FNDA:5,BlogCard
-DA:10,5
+FNH:0
+FNDA:0,BlogCard
+DA:10,0
 LF:1
-LH:1
+LH:0
 BRF:0
 BRH:0
 end_of_record
