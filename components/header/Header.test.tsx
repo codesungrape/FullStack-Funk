@@ -20,12 +20,12 @@ type ThemeModule = {
 
 // Mock the useTheme hook
 jest.mock('../../app/providers/theme-provider', (): ThemeModule => ({
-  useTheme: jest.fn(() => ({
-    theme: 'light',
-    toggleTheme: jest.fn()
-  })),
-  ThemeProvider: ({ children }) => <div>{children}</div>
-}));
+    useTheme: jest.fn((): UseThemeReturn => ({
+      theme: 'light' as const,
+      toggleTheme: jest.fn()
+    })),
+    ThemeProvider: ({ children }) => <div>{children}</div>
+  }));
 
 // Mock next/link
 jest.mock('next/link', () => ({
