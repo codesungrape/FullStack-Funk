@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 // Header.test.tsx
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
