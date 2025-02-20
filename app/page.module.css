@@ -1,0 +1,84 @@
+.hero {
+  text-align: center;
+  padding: 6rem 2rem;
+  background: var(--gradient-1);
+  border-radius: var(--radius);
+  margin-bottom: var(--gap);
+  position: relative;
+  overflow: hidden;
+  color: white;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: repeating-linear-gradient(
+    transparent,
+    transparent 50px,
+    rgba(255, 255, 255, 0.1) 50px,
+    rgba(255, 255, 255, 0.1) 51px
+  );
+  transform: rotate(45deg);
+  animation: shine 20s linear infinite;
+}
+
+.hero h1 {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  color: white;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  animation: float 6s ease-in-out infinite;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.featured {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.featured h2 {
+  font-size: 2.5rem;
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.grid {
+  display: grid;
+  gap: var(--gap);
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .hero {
+    padding: 4rem 1rem;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero p {
+    font-size: 1.125rem;
+  }
+}
+

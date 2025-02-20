@@ -1,0 +1,31 @@
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  display: grid;
+  grid-template-columns: 1fr var(--sidebar-width);
+  gap: var(--gap);
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.sidebar {
+  position: sticky;
+  top: calc(var(--header-height) + 2rem);
+  height: fit-content;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+}
+
