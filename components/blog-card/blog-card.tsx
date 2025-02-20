@@ -12,6 +12,8 @@ export default function BlogCard(post: Post) {
       <Image 
         src={post.image} 
         alt={post.title} 
+        width={800}  // Add appropriate width
+        height={400} // Add appropriate height
         className={styles.image}
       />
       <div className={styles.content}>
@@ -19,7 +21,12 @@ export default function BlogCard(post: Post) {
         <p className={styles.excerpt}>{post.excerpt}</p>
         <div className={styles.metadata}>
           <div className={styles.author}>
-            <Image src={post.author.avatar} alt={post.author.name} />
+            <Image 
+            src={post.author.avatar} 
+            alt={post.author.name} 
+            width={800}  // Add appropriate width
+            height={400} // Add appropriate height
+            />
             <span>{post.author.name}</span>
           </div>
           <time>{post.date}</time>
