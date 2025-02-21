@@ -1,19 +1,22 @@
+/* eslint-disable @next/next/no-img-element */
 import { render, screen } from '@testing-library/react'
 import BlogPost, { generateMetadata, generateStaticParams } from './page'
 import { posts } from '@/data/posts'
 import { notFound } from 'next/navigation'
-import { Metadata } from 'next'
+import { ImageProps, StaticImageData } from 'next/image';
+
+
 
 // Mock next/navigation
 jest.mock('next/navigation', () => ({
   notFound: jest.fn()
 }))
 
-// Mock next/image
+// Mock next/image with explicit typing for the props
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: ({ src, alt, className }: any) => (
-    <img src={src} alt={alt} className={className} />
+  default: ({ src, alt, className }: ImageProps) => (
+    <img src={typeof src === 'string' ? src : (src as StaticImageData).src} alt={alt} className={className} />
   )
 }))
 
@@ -74,6 +77,7 @@ describe('BlogPost', () => {
     expect(notFound).toHaveBeenCalled()
   })
 })
+
 
 describe('generateMetadata', () => {
   it('returns combined song and post title for existing post', () => {
