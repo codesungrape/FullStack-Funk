@@ -22,8 +22,8 @@ export default function Header() {
             {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
           </button>
           
-          {/* button doesnt lead to anywhere right now */}
-          <button className={styles.authButton}>Sign In</button> 
+          {/* button doesnt lead to anywhere right now- func to be added later with security elements/supabase auth
+          <button className={styles.authButton}>Sign In</button>  */}
         </nav>
       </div>
     </header>
