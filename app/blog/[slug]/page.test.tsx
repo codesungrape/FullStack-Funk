@@ -1,114 +1,136 @@
-/* eslint-disable @next/next/no-img-element */
 import { render, screen } from '@testing-library/react'
 import BlogPost, { generateMetadata, generateStaticParams } from './page'
 import { posts } from '@/data/posts'
 import { notFound } from 'next/navigation'
-import { ImageProps, StaticImageData } from 'next/image';
-
-
 
 // Mock next/navigation
 jest.mock('next/navigation', () => ({
-  notFound: jest.fn()
+  notFound: jest.fn(() => {
+    throw new Error('NEXT_NOT_FOUND')
+  })
 }))
 
-// Mock next/image with explicit typing for the props
+// Mock next/image
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: ({ src, alt, className }: ImageProps) => (
-    <img src={typeof src === 'string' ? src : (src as StaticImageData).src} alt={alt} className={className} />
-  )
+  default: (props: any) => <img {...props} />
 }))
 
 // Mock Layout component
 jest.mock('@/components/page-layout/page-layout', () => ({
   __esModule: true,
-  default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>
+  default: ({ children }: { children: React.ReactNode }) => <div data-testid="layout">{children}</div>
 }))
 
-describe('BlogPost', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
+// Mock posts data
+jest.mock('@/data/posts', () => ({
+  posts: [
+    {
+      slug: 'test-post',
+      title: 'Test Post',
+      excerpt: 'Test excerpt',
+      date: '2024-02-21',
+      readTime: '5 min read',
+      tags: ['test', 'music'],
+      lyrics: 'Test lyrics',
+      author: {
+        name: 'Test Author',
+        avatar: '/test-avatar.jpg'
+      },
+      song: {
+        title: 'Test Song',
+        artist: 'Test Artist',
+        coverArt: '/test-cover.jpg',
+        url: '/test-song.mp3'
+      }
+    }
+  ]
+}))
 
-  it('renders all blog post components correctly', () => {
-    const post = posts[0] // Using first post from actual data
-    jest.spyOn(posts, 'find').mockReturnValue(post)
+describe('BlogPost Page', () => {
+  describe('generateMetadata', () => {
+    it('should generate correct metadata for existing post', () => {
+      const params = { slug: 'test-post' }
+      const metadata = generateMetadata({ params })
 
-    render(<BlogPost params={{ slug: post.slug }} />)
+      expect(metadata).toEqual({
+        title: 'Test Song - Test Post',
+        description: 'Test excerpt'
+      })
+    })
 
-    // Check main structural elements
-    expect(screen.getByRole('article')).toBeInTheDocument()
-    expect(screen.getByRole('heading', { name: post.title })).toBeInTheDocument()
+    it('should generate not found metadata for non-existent post', () => {
+      const params = { slug: 'non-existent' }
+      const metadata = generateMetadata({ params })
 
-    // Check song section
-    expect(screen.getByRole('heading', { name: post.song.title })).toBeInTheDocument()
-    expect(screen.getByText(post.song.artist)).toBeInTheDocument()
-    expect(screen.getByRole('audio')).toHaveAttribute('src', post.song.url)
-
-    // Check metadata section
-    expect(screen.getByText(post.author.name)).toBeInTheDocument()
-    expect(screen.getByText(post.date)).toBeInTheDocument()
-    expect(screen.getByText(post.readTime)).toBeInTheDocument()
-
-    // Check content sections
-    expect(screen.getByText(post.excerpt)).toBeInTheDocument()
-    expect(screen.getByText(post.lyrics)).toBeInTheDocument()
-
-    // Check images
-    const coverArt = screen.getByAltText(`${post.song.title} cover art`)
-    expect(coverArt).toBeInTheDocument()
-    expect(coverArt).toHaveAttribute('src', post.song.coverArt)
-
-    const avatar = screen.getByAltText(post.author.name)
-    expect(avatar).toBeInTheDocument()
-    expect(avatar).toHaveAttribute('src', post.author.avatar)
-
-    // Check tags
-    post.tags.forEach(tag => {
-      expect(screen.getByText(tag)).toBeInTheDocument()
+      expect(metadata).toEqual({
+        title: 'Post Not Found',
+        description: 'The requested blog post could not be found'
+      })
     })
   })
 
-  it('calls notFound when post is not found', () => {
-    jest.spyOn(posts, 'find').mockReturnValue(undefined)
-    
-    render(<BlogPost params={{ slug: 'non-existent' }} />)
-    expect(notFound).toHaveBeenCalled()
-  })
-})
-
-
-describe('generateMetadata', () => {
-  it('returns combined song and post title for existing post', () => {
-    const post = posts[0]
-    jest.spyOn(posts, 'find').mockReturnValue(post)
-
-    const metadata = generateMetadata({ params: { slug: post.slug } })
-
-    expect(metadata).toEqual({
-      title: `${post.song.title} - ${post.title}`,
-      description: post.excerpt
+  describe('generateStaticParams', () => {
+    it('should generate params for all posts', () => {
+      const params = generateStaticParams()
+      expect(params).toEqual([{ slug: 'test-post' }])
     })
   })
 
-  it('returns not found metadata for non-existent post', () => {
-    jest.spyOn(posts, 'find').mockReturnValue(undefined)
+  describe('BlogPost component', () => {
+    it('should render complete blog post for valid slug', () => {
+      render(<BlogPost params={{ slug: 'test-post' }} />)
 
-    const metadata = generateMetadata({ params: { slug: 'non-existent' } })
+      // Check if main elements are rendered
+      expect(screen.getByRole('article')).toBeInTheDocument()
+      expect(screen.getByAltText('Test Song cover art')).toBeInTheDocument()
+      expect(screen.getByText('Test Song')).toBeInTheDocument()
+      expect(screen.getByText('Test Artist')).toBeInTheDocument()
+      
+      // Check audio player
+      const audioPlayer = screen.getByTestId('audio-player')
+      expect(audioPlayer).toBeInTheDocument()
+      expect(audioPlayer).toHaveAttribute('src', '/test-song.mp3')
 
-    expect(metadata).toEqual({
-      title: 'Post Not Found',
-      description: 'The requested blog post could not be found'
+      // Check post content
+      expect(screen.getByText('Test Post')).toBeInTheDocument()
+      expect(screen.getByText('Test Author')).toBeInTheDocument()
+      expect(screen.getByText('2024-02-21')).toBeInTheDocument()
+      expect(screen.getByText('5 min read')).toBeInTheDocument()
+
+      // Check tags
+      expect(screen.getByText('test')).toBeInTheDocument()
+      expect(screen.getByText('music')).toBeInTheDocument()
+
+      // Check description and lyrics
+      expect(screen.getByText('About this lesson')).toBeInTheDocument()
+      expect(screen.getByText('Test excerpt')).toBeInTheDocument()
+      expect(screen.getByText('Lyrics')).toBeInTheDocument()
+      expect(screen.getByText('Test lyrics')).toBeInTheDocument()
     })
-  })
-})
 
-describe('generateStaticParams', () => {
-  it('returns slug params for all posts', () => {
-    const params = generateStaticParams()
-    const expectedParams = posts.map(post => ({ slug: post.slug }))
-    
-    expect(params).toEqual(expectedParams)
+    it('should call notFound for invalid slug', () => {
+      render(<BlogPost params={{ slug: 'non-existent' }} />)
+      expect(notFound).toHaveBeenCalled()
+    })
+
+    it('should render within layout component', () => {
+      render(<BlogPost params={{ slug: 'test-post' }} />)
+      expect(screen.getByTestId('layout')).toBeInTheDocument()
+    })
+
+    it('should render author avatar with correct attributes', () => {
+      render(<BlogPost params={{ slug: 'test-post' }} />)
+      const avatar = screen.getByAltText('Test Author')
+      expect(avatar).toHaveAttribute('width', '40')
+      expect(avatar).toHaveAttribute('height', '40')
+    })
+
+    it('should render cover art with correct attributes', () => {
+      render(<BlogPost params={{ slug: 'test-post' }} />)
+      const coverArt = screen.getByAltText('Test Song cover art')
+      expect(coverArt).toHaveAttribute('width', '300')
+      expect(coverArt).toHaveAttribute('height', '300')
+    })
   })
 })

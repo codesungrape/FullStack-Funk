@@ -61,6 +61,7 @@ export default function BlogPost({ params }: Props) {
               controls
               className={styles.audioPlayer}
               src={post.song.url}
+              data-testid="audio-player"
             />
           </div>
         </div>
