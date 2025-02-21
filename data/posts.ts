@@ -193,5 +193,44 @@ export const posts: Post[] = [
     tags: ["React", "JavaScript", "Web Development"],
     slug: "react-server-components-digital-flow"
   },
-
+  {
+    title: "The TypeScript Type Annotations Song",
+    excerpt: "A melodic exploration of TypeScript's type system, from basic annotations to advanced generics, helping developers write safer code through the power of static typing",
+    lyrics: `
+  type User = { id: string }
+  interface Props extends Thing
+  Let compiler guide your way
+  Generic types display
+  Array<string> in your code
+  Record<K,V> down the road
+  
+  Type annotations clear the way
+  (user: User) => void they say
+  Catch those nulls before runtime
+  Type inference so sublime
+  
+  Union types with pipe in hand
+  number | string understand
+  Partial<Type> when in doubt
+  Readonly<T> helps throughout
+  
+  function parse<T extends Base>
+  Keep those types firmly in place
+  That's how TypeScript sets you free
+  With strict null checks, you'll see`,
+    song: {
+      title: "Type Annotations",
+      artist: "The Static Typers",
+      url: "/assets/TheStaticTypers.jpeg",
+      coverArt: "/assets/TheStaticTypers.jpeg"
+    },
+    author: {
+      name: "Simon TypeScript",
+      avatar: "/assets/TheStaticTypers.jpeg",
+    },
+    date: "Feb 23, 2025",
+    readTime: "3 min",
+    tags: ["TypeScript", "Programming", "Type Safety", "Development", "Code Poetry"],
+    slug: "typescript-type-annotations-song"
+  }
 ]
