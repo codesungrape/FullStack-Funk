@@ -9,7 +9,7 @@ export default function Home() {
     <Layout>
       <section className={styles.hero}>
         <h1>Full-Stack Funk</h1>
-        <p>Learn through song where code meets melody-web dev, and funky tech tunes!</p>
+        <p>Code concepts turned catchy tunes - sing along, learn along!</p>
       </section>
 
       <section className={styles.featured}>

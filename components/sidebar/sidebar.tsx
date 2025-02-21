@@ -15,6 +15,18 @@ export default function Sidebar() {
       </div>
 
       <div className={styles.section}>
+        <h3 className={styles.sectionTitle}>Share Your Tech Tunes</h3>
+        <form className={styles.submission}>
+          <p>Got a coding concept that needs a melody? Submit your tech-educational lyrics for review!</p>
+          <input type="text" placeholder="Song title" />
+          <textarea placeholder="Paste your lyrics here..." rows={4} />
+          <input type="file" accept="audio/*" className={styles.fileInput} />
+          <small className={styles.hint}>Optional: Include a demo recording (MP3)</small>
+          <button type="submit">Submit for Review</button>
+        </form>
+      </div>
+
+      <div className={styles.section}>
         <h3 className={styles.sectionTitle}>Popular Tags</h3>
         <div className={styles.tags}>
           {tags.map((tag) => (
