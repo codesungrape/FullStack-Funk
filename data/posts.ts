@@ -28,7 +28,7 @@ export const posts: Post[] = [
   Users leave, waiting too long
   Performance drops, something's wrong
   
-  Verse 2:
+
   Next.js Image makes it clean
   Optimized with WebP lean
   Lazy loading, auto-size
@@ -40,6 +40,16 @@ export const posts: Post[] = [
   CDN serves it, keeps it tight
   Faster loads, pages bright!
   
+  Resizes files, picks the best,
+  No wasted space, outperforms the rest.
+  Blur-up previews, looking tight,
+  LCP scores shining bright.
+
+  Use <Image>, let it flow,
+  No extra work, just plug and go.
+  CDN serves it, keeps it tight,
+  Faster loads, pages bright!
+
   Bridge:
   Better scores, no delay
   Google ranks it high today
@@ -135,12 +145,12 @@ export const posts: Post[] = [
     Packs your apps inside a crew!
     Lightweight, fast, it runs so neat,
     No more "Works on my machine" defeat!
-    Verse 2:
+
     Spin up containers, ship with ease,
     No more setups, no more pleas!
     Same on Windows, Mac, or cloud,
     Let's break it down, let's make it loud!
-    Chorus:
+
     FROM sets the base, where we start the chase,
     Copy files in place with a simple COPY phrase.
     Need to run a script? Use RUN real quick,
@@ -152,28 +162,28 @@ export const posts: Post[] = [
     Ubuntu, Node, or Python speed.
     Then we COPY in the source,
     Code and files—stay on course!
-    Verse 4:
+
     Now we RUN to install the rest,
     Like npm install, make it the best!
     Then EXPOSE the port, don't forget,
     So outside world can make requests!
-    Bridge:
+
     Every step creates a layer,
     Too many? That's a player slayer!
     Squash those RUNs, keep it tight
     Make your images super light!
     [Chorus Repeat]
-    Verse 5:
+
     Works the same, anywhere you go,
     Cloud, local, all in flow!
     Fast to build and light to run,
     Docker's got it—job well done!
-    Verse 6:
+
     Scale it up, deploy with ease,
     CI/CD? It's a breeze!
     Microservices, every day,
     Docker helps you pave the way!
-    Outro:
+
     Now you know the Docker game,
     Build, ship, run—it's never the same.
     Keep it simple, keep it lean,
