@@ -221,7 +221,7 @@ export const posts: Post[] = [
     song: {
       title: "Type Annotations",
       artist: "The Static Typers",
-      url: "/assets/TheStaticTypers.jpeg",
+      url: "/audio/The TypeScript Type Annotations Song (3).mp3",
       coverArt: "/assets/TheStaticTypers.jpeg"
     },
     author: {
