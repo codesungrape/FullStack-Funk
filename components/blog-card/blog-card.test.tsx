@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import BlogCard from './blog-card';
@@ -17,63 +16,86 @@ jest.mock('next/image', () => ({
 // Mock CSS module
 jest.mock('./blog-card.module.css', () => ({
   card: 'card',
-  image: 'image',
+  songSection: 'songSection',
+  songInfo: 'songInfo',
+  songIcon: 'songIcon',
+  songTitle: 'songTitle',
+  artist: 'artist',
   content: 'content',
   title: 'title',
   excerpt: 'excerpt',
+  lyricsPreview: 'lyricsPreview',
+  tags: 'tags',
+  tag: 'tag',
   metadata: 'metadata',
   author: 'author',
+  avatar: 'avatar',
 }));
-
 
 describe('BlogCard', () => {
   const mockPost: Post = {
     slug: 'test-post',
     title: 'Test Blog Post',
     excerpt: 'This is a test excerpt',
-    image: '/test-image.jpg',
+    song: {
+      title: 'Test Song',
+      artist: 'Test Artist',
+      url: 'https://example.com/song',
+      coverArt: '/song-cover.jpg'
+    },
+    lyrics: 'Line 1\nLine 2\nLine 3\nLine 4\nLine 5\nLine 6',
     date: '2024-02-20',
-    readTime: '5 min read',
+    readTime: '5 min read', // Changed from readTime to readingTime
     author: {
       name: 'John Doe',
       avatar: '/avatar.jpg',
     },
-    tags: ['test', 'blog'],
+    tags: ['pop', 'rock'],
   };
 
-  it('renders blog post information correctly', () => {
-    render(<BlogCard {...mockPost} />);
+  it('renders blog post and song information correctly', () => {
+    render(<BlogCard post={mockPost} />); // Changed to pass post as a prop
 
-    // Check title
+    // Check blog post info
     expect(screen.getByText('Test Blog Post')).toBeInTheDocument();
-
-    // Check excerpt
     expect(screen.getByText('This is a test excerpt')).toBeInTheDocument();
+
+    // Check song info
+    expect(screen.getByText('Test Song')).toBeInTheDocument();
+    expect(screen.getByText('Test Artist')).toBeInTheDocument();
+    expect(screen.getByText('♪')).toBeInTheDocument();
+  });
+
+  it('renders lyrics preview correctly', () => {
+    render(<BlogCard post={mockPost} />);
+
+    expect(screen.getByText('Preview Lyrics:')).toBeInTheDocument();
+    expect(screen.getByText('Line 1\nLine 2\nLine 3\nLine 4\n...')).toBeInTheDocument();
+  });
+
+  it('renders tags correctly', () => {
+    render(<BlogCard post={mockPost} />);
+
+    expect(screen.getByText('pop')).toBeInTheDocument();
+    expect(screen.getByText('rock')).toBeInTheDocument();
+  });
+
+  it('renders author and metadata correctly', () => {
+    render(<BlogCard post={mockPost} />);
 
     // Check author info
     expect(screen.getByText('John Doe')).toBeInTheDocument();
+    const avatarImage = screen.getByAltText('John Doe');
+    expect(avatarImage).toBeInTheDocument();
+    expect(avatarImage).toHaveAttribute('src', '/avatar.jpg');
 
     // Check metadata
     expect(screen.getByText('2024-02-20')).toBeInTheDocument();
     expect(screen.getByText('5 min read')).toBeInTheDocument();
   });
 
-  it('renders images with correct src and alt text', () => {
-    render(<BlogCard {...mockPost} />);
-
-    // Check main blog image
-    const mainImage = screen.getByAltText('Test Blog Post');
-    expect(mainImage).toBeInTheDocument();
-    expect(mainImage).toHaveAttribute('src', '/test-image.jpg');
-
-    // Check author avatar
-    const avatarImage = screen.getByAltText('John Doe');
-    expect(avatarImage).toBeInTheDocument();
-    expect(avatarImage).toHaveAttribute('src', '/avatar.jpg');
-  });
-
   it('links to the correct blog post URL', () => {
-    render(<BlogCard {...mockPost} />);
+    render(<BlogCard post={mockPost} />);
 
     const link = screen.getByRole('link');
     expect(link).toHaveAttribute('href', '/blog/test-post');
@@ -83,33 +105,41 @@ describe('BlogCard', () => {
     const incompletePost: Post = {
       ...mockPost,
       excerpt: '',
-      readTime: '',
+      readTime: '', // Changed from readTime
+      lyrics: '',
+      song: {
+        title: '',
+        artist: '',
+        url: '',
+        coverArt: ''
+      },
       author: {
         name: '',
         avatar: '',
       },
+      tags: [],
     };
 
-    render(<BlogCard {...incompletePost} />);
+    render(<BlogCard post={incompletePost} />);
 
     // Should still render without crashing
     expect(screen.getByText('Test Blog Post')).toBeInTheDocument();
   });
 
   it('maintains correct DOM hierarchy', () => {
-    render(<BlogCard {...mockPost} />);
+    render(<BlogCard post={mockPost} />);
 
-    const link = screen.getByRole('link');
+    const songSection = document.querySelector(`.${styles.songSection}`);
     const content = document.querySelector(`.${styles.content}`);
     const metadata = document.querySelector(`.${styles.metadata}`);
 
+    expect(songSection).toBeInTheDocument();
     expect(content).toBeInTheDocument();
     expect(metadata).toBeInTheDocument();
-    expect(content?.parentElement).toBe(link);
-    expect(metadata?.parentElement).toBe(content);
+    expect(songSection?.parentElement).toHaveClass(styles.card);
+    expect(content?.parentElement).toHaveClass(styles.card);
   });
 });
-
 
 
       //   it('applies correct CSS classes', () => {

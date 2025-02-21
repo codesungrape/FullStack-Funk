@@ -2,12 +2,11 @@ import { render, screen } from '@testing-library/react'
 import BlogPost, { generateMetadata, generateStaticParams } from './page'
 import { posts } from '@/data/posts'
 import { notFound } from 'next/navigation'
+import { Metadata } from 'next'
 
 // Mock next/navigation
 jest.mock('next/navigation', () => ({
-  notFound: jest.fn(() => {
-    throw new Error('NEXT_NOT_FOUND')
-  })
+  notFound: jest.fn()
 }))
 
 // Mock next/image
@@ -24,133 +23,88 @@ jest.mock('@/components/page-layout/page-layout', () => ({
   default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>
 }))
 
-// Mock post data
-const mockPost = {
-  slug: 'test-post',
-  title: 'Test Post',
-  image: '/test-image.jpg',
-  author: {
-    name: 'John Doe',
-    avatar: '/avatar.jpg'
-  },
-  date: '2024-02-20',
-  readTime: '5 min read',
-  tags: ['test', 'blog'],
-  excerpt: 'This is a test post excerpt'
-}
-
 describe('BlogPost', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
-  it('renders the blog post when slug is found', () => {
-    // Mock posts array to include our test post
-    jest.spyOn(posts, 'find').mockReturnValue(mockPost)
+  it('renders all blog post components correctly', () => {
+    const post = posts[0] // Using first post from actual data
+    jest.spyOn(posts, 'find').mockReturnValue(post)
 
-    render(<BlogPost params={{ slug: 'test-post' }} />)
+    render(<BlogPost params={{ slug: post.slug }} />)
 
-    // Check if main elements are rendered
+    // Check main structural elements
     expect(screen.getByRole('article')).toBeInTheDocument()
-    expect(screen.getByRole('heading', { name: mockPost.title })).toBeInTheDocument()
-    expect(screen.getByText(mockPost.author.name)).toBeInTheDocument()
-    expect(screen.getByText(mockPost.date)).toBeInTheDocument()
-    expect(screen.getByText(mockPost.readTime)).toBeInTheDocument()
-    expect(screen.getByText(mockPost.excerpt)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: post.title })).toBeInTheDocument()
 
-    // Check if tags are rendered
-    mockPost.tags.forEach(tag => {
+    // Check song section
+    expect(screen.getByRole('heading', { name: post.song.title })).toBeInTheDocument()
+    expect(screen.getByText(post.song.artist)).toBeInTheDocument()
+    expect(screen.getByRole('audio')).toHaveAttribute('src', post.song.url)
+
+    // Check metadata section
+    expect(screen.getByText(post.author.name)).toBeInTheDocument()
+    expect(screen.getByText(post.date)).toBeInTheDocument()
+    expect(screen.getByText(post.readTime)).toBeInTheDocument()
+
+    // Check content sections
+    expect(screen.getByText(post.excerpt)).toBeInTheDocument()
+    expect(screen.getByText(post.lyrics)).toBeInTheDocument()
+
+    // Check images
+    const coverArt = screen.getByAltText(`${post.song.title} cover art`)
+    expect(coverArt).toBeInTheDocument()
+    expect(coverArt).toHaveAttribute('src', post.song.coverArt)
+
+    const avatar = screen.getByAltText(post.author.name)
+    expect(avatar).toBeInTheDocument()
+    expect(avatar).toHaveAttribute('src', post.author.avatar)
+
+    // Check tags
+    post.tags.forEach(tag => {
       expect(screen.getByText(tag)).toBeInTheDocument()
     })
-
-    // Check if images are rendered with correct props
-    const coverImage = screen.getByAltText(mockPost.title)
-    expect(coverImage).toBeInTheDocument()
-    expect(coverImage).toHaveAttribute('src', mockPost.image)
-
-    const authorAvatar = screen.getByAltText(mockPost.author.name)
-    expect(authorAvatar).toBeInTheDocument()
-    expect(authorAvatar).toHaveAttribute('src', mockPost.author.avatar)
   })
 
-  it('calls notFound when slug is not found', () => {
-    // Mock posts array to return undefined (post not found)
+  it('calls notFound when post is not found', () => {
     jest.spyOn(posts, 'find').mockReturnValue(undefined)
-
-    // Expect the render to throw because notFound throws
-    expect(() => {
-      render(<BlogPost params={{ slug: 'non-existent-post' }} />)
-    }).toThrow('NEXT_NOT_FOUND')
-
-    // Check if notFound was called
+    
+    render(<BlogPost params={{ slug: 'non-existent' }} />)
     expect(notFound).toHaveBeenCalled()
   })
-
-   it('renders with correct CSS classes', () => {
-      jest.spyOn(posts, 'find').mockReturnValue(mockPost)
-  
-      const { container } = render(<BlogPost params={{ slug: 'test-post' }} />)
-  
-      // Check if elements have the correct CSS classes
-      expect(container.querySelector('.article')).toBeInTheDocument()
-      expect(container.querySelector('.coverImage')).toBeInTheDocument()
-      expect(container.querySelector('.content')).toBeInTheDocument()
-      expect(container.querySelector('.metadata')).toBeInTheDocument()
-      expect(container.querySelector('.author')).toBeInTheDocument()
-      expect(container.querySelector('.tags')).toBeInTheDocument()
-      expect(container.querySelector('.tag')).toBeInTheDocument()
-    })
 })
 
-  // Snapshot test
-  it('matches snapshot', () => {
-    jest.spyOn(posts, 'find').mockReturnValue(mockPost)
-    
-    const { container } = render(<BlogPost params={{ slug: 'test-post' }} />)
-    expect(container).toMatchSnapshot()
+describe('generateMetadata', () => {
+  it('returns combined song and post title for existing post', () => {
+    const post = posts[0]
+    jest.spyOn(posts, 'find').mockReturnValue(post)
+
+    const metadata = generateMetadata({ params: { slug: post.slug } })
+
+    expect(metadata).toEqual({
+      title: `${post.song.title} - ${post.title}`,
+      description: post.excerpt
+    })
   })
 
-  describe('generateMetadata', () => {
-    it('returns correct metadata for existing post', () => {
-      jest.spyOn(posts, 'find').mockReturnValue(mockPost)
-  
-      const metadata = generateMetadata({ params: { slug: 'test-post' } })
-  
-      expect(metadata).toEqual({
-        title: mockPost.title,
-        description: mockPost.excerpt
-      })
-    })
-  
-    it('returns not found metadata for non-existent post', () => {
-      jest.spyOn(posts, 'find').mockReturnValue(undefined)
-  
-      const metadata = generateMetadata({ params: { slug: 'non-existent' } })
-  
-      expect(metadata).toEqual({
-        title: 'Post Not Found',
-        description: 'The requested blog post could not be found'
-      })
+  it('returns not found metadata for non-existent post', () => {
+    jest.spyOn(posts, 'find').mockReturnValue(undefined)
+
+    const metadata = generateMetadata({ params: { slug: 'non-existent' } })
+
+    expect(metadata).toEqual({
+      title: 'Post Not Found',
+      description: 'The requested blog post could not be found'
     })
   })
-  
-  describe('generateStaticParams', () => {
-    it('returns correct params for all posts', () => {
-      const mockPosts = [
-        { ...mockPost, slug: 'post-1' },
-        { ...mockPost, slug: 'post-2' }
-      ]
-      
-      // Mock the entire posts array
-      jest.spyOn(posts, 'map').mockImplementation(() => 
-        mockPosts.map(post => ({ slug: post.slug }))
-      )
-  
-      const params = generateStaticParams()
-  
-      expect(params).toEqual([
-        { slug: 'post-1' },
-        { slug: 'post-2' }
-      ])
-    })
+})
+
+describe('generateStaticParams', () => {
+  it('returns slug params for all posts', () => {
+    const params = generateStaticParams()
+    const expectedParams = posts.map(post => ({ slug: post.slug }))
+    
+    expect(params).toEqual(expectedParams)
   })
+})

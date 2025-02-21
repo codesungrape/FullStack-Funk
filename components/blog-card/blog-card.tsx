@@ -3,7 +3,11 @@ import Image from "next/image"
 import styles from "./blog-card.module.css"
 import { Post } from "@/data/posts"
 
-export default function BlogCard(post: Post) {
+type BlogCardProps = {
+  post: Post
+}
+
+export default function BlogCard({ post }: BlogCardProps) {
   return (
     <Link href={`/blog/${post.slug}`} className={styles.card}>
       <div className={styles.songSection}>
@@ -18,7 +22,6 @@ export default function BlogCard(post: Post) {
         <h2 className={styles.title}>{post.title}</h2>
         <p className={styles.excerpt}>{post.excerpt}</p>
         
-        {/* Add lyrics section */}
         <div className={styles.lyricsPreview}>
           <h4>Preview Lyrics:</h4>
           <p>{post.lyrics.split('\n').slice(0, 4).join('\n')}...</p>

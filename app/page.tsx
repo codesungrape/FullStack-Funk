@@ -16,7 +16,7 @@ export default function Home() {
         <h2>Featured Posts</h2>
         <div className={styles.grid}>
           {posts.map((post) => (
-            <BlogCard key={post.slug} {...post} />
+            <BlogCard key={post.slug} post={post} />
           ))}
         </div>
       </section>
