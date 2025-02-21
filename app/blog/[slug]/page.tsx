@@ -5,7 +5,6 @@ import { posts } from '@/data/posts'
 import Layout from '@/components/page-layout/page-layout'
 import { Metadata } from 'next'
 
-
 type Props = {
   params: {
     slug: string
@@ -23,7 +22,7 @@ export function generateMetadata({ params }: Props): Metadata {
   }
 
   return {
-    title: post.title,
+    title: `${post.song.title} - ${post.title}`,
     description: post.excerpt
   }
 }
@@ -33,7 +32,6 @@ export function generateStaticParams() {
     slug: post.slug
   }))
 }
-
 
 export default function BlogPost({ params }: Props) {
   const post = posts.find((post) => post.slug === params.slug)
@@ -45,13 +43,27 @@ export default function BlogPost({ params }: Props) {
   return (
     <Layout>
       <article className={styles.article}>
-        <Image 
-          src={post.image} 
-          alt={post.title}
-          width={800}
-          height={400}
-          className={styles.coverImage}
-        />
+        <div className={styles.songHeader}>
+          <Image 
+            src={post.song.coverArt} 
+            alt={`${post.song.title} cover art`}
+            width={300}
+            height={300}
+            className={styles.coverArt}
+          />
+          <div className={styles.songInfo}>
+            <div className={styles.songMeta}>
+              <h2 className={styles.songTitle}>{post.song.title}</h2>
+              <p className={styles.artist}>{post.song.artist}</p>
+            </div>
+            {/* Optional: Add audio player if you want to include the actual song */}
+            <audio
+              controls
+              className={styles.audioPlayer}
+              src={post.song.url}
+            />
+          </div>
+        </div>
         
         <div className={styles.content}>
           <h1>{post.title}</h1>
@@ -63,6 +75,7 @@ export default function BlogPost({ params }: Props) {
                 alt={post.author.name}
                 width={40}
                 height={40}
+                className={styles.avatar}
               />
               <span>{post.author.name}</span>
             </div>
@@ -76,7 +89,17 @@ export default function BlogPost({ params }: Props) {
             ))}
           </div>
 
-          <p>{post.excerpt}</p>
+          <div className={styles.description}>
+            <h3>About this lesson</h3>
+            <p>{post.excerpt}</p>
+          </div>
+
+          <div className={styles.lyrics}>
+            <h3>Lyrics</h3>
+            <pre className={styles.lyricsText}>
+              {post.lyrics}
+            </pre>
+          </div>
         </div>
       </article>
     </Layout>

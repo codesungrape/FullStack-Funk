@@ -1,31 +1,45 @@
-// import Image from "next/image"
 import Link from "next/link"
+import Image from "next/image"
 import styles from "./blog-card.module.css"
 import { Post } from "@/data/posts"
-import Image from "next/image"
-
-
 
 export default function BlogCard(post: Post) {
   return (
     <Link href={`/blog/${post.slug}`} className={styles.card}>
-      <Image 
-        src={post.image} 
-        alt={post.title} 
-        width={800}  // Add appropriate width
-        height={400} // Add appropriate height
-        className={styles.image}
-      />
+      <div className={styles.songSection}>
+        <div className={styles.songInfo}>
+          <span className={styles.songIcon}>♪</span>
+          <h3 className={styles.songTitle}>{post.song.title}</h3>
+          <p className={styles.artist}>{post.song.artist}</p>
+        </div>
+      </div>
+
       <div className={styles.content}>
-        <h3 className={styles.title}>{post.title}</h3>
+        <h2 className={styles.title}>{post.title}</h2>
         <p className={styles.excerpt}>{post.excerpt}</p>
+        
+        {/* Add lyrics section */}
+        <div className={styles.lyricsPreview}>
+          <h4>Preview Lyrics:</h4>
+          <p>{post.lyrics.split('\n').slice(0, 4).join('\n')}...</p>
+        </div>
+
+        <div className={styles.tags}>
+          {post.tags.map((tag) => (
+            <span key={tag} className={styles.tag}>
+              {tag}
+            </span>
+          ))}
+        </div>
+
         <div className={styles.metadata}>
           <div className={styles.author}>
             <Image 
-            src={post.author.avatar} 
-            alt={post.author.name} 
-            width={800}  // Add appropriate width
-            height={400} // Add appropriate height
+              src={post.author.avatar} 
+              alt={post.author.name} 
+              width={40}
+              height={40}
+              className={styles.avatar}
             />
             <span>{post.author.name}</span>
           </div>
@@ -36,9 +50,3 @@ export default function BlogCard(post: Post) {
     </Link>
   )
 }
-
-
-
-
-
-
