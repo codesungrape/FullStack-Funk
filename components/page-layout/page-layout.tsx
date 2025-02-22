@@ -1,5 +1,5 @@
 import type React from "react"
-import Sidebar from "../sidebar/sidebar"
+import Sidebar from "../sidebar/Sidebar"
 import styles from "./page-layout.module.css"
 
 export default function PageLayout({ children }: { children: React.ReactNode }) {
