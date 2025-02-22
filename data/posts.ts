@@ -20,6 +20,69 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    title: "Master React Naming Conventions Through Song!",
+    excerpt: "Learn the essential React naming conventions through this tune covering everything from PascalCase components to camelCase props, and event handling patterns.",
+    lyrics: `
+  PascalCase is as simple as can be,
+  For components, that's what you'll always see!
+  Like BlogCard, Header, and UserProfile too,
+  That's the way that React wants you to do!
+  
+  Pascal, Pascal—that's for components!
+  Camel, camel—that's for your props!
+  Files match components, that's the golden rule,
+  Keep it consistent, don't be a fool!
+  
+  handleClick, handleChange, handleSubmit too,
+  Prefix with "handle"—that's what you should do!
+  For prop events, it's onSubmit and onChange,
+  Follow these rules, and you'll be in range!
+  
+  useAuth, useState—hooks start with "use"!
+  formatDate in utils, that's what we choose!
+  MAX_COUNT constants SHOUT in uppercase,
+  And that's the way—uh-huh, uh-huh—
+  We like it—uh-huh, uh-huh!
+  
+  Test files match with a dot test dot tsx,
+  CSS Modules? Just add .module.css!
+  BlogCard folder holds BlogCard.tsx,
+  That's the naming game at its best!
+  
+  Pascal for components (BlogCard!)
+  Camel for your props (userName!)
+  Handle for your events (handleClick!)
+  Use for all your hooks (useAuth!)
+  Now we know the rules,
+  Of the React naming school!
+  
+  Keep it consistent...
+  Make it clear...
+  That's the React way!`,
+    song: {
+      title: "The React Naming Convention Song",
+      artist: "The TypeScript Troubadours",
+      url: "/audio/The React Naming Convention Song (1).mp3",
+      coverArt: "/assets/ReactFemaleSinger.jpg"
+    },
+    author: {
+      name: "Cara and the PussyCats",
+      avatar: "/assets/ReactFemaleSinger.jpg"
+    },
+    date: "2025-02-22",
+    readTime: "3 min",
+    tags: [
+      "React",
+      "JavaScript",
+      "Naming Conventions",
+      "Best Practices",
+      "Educational",
+      "Programming Songs",
+      "Bubblegum-pop"
+    ],
+    slug: "react-naming-convention-song"
+  },
+  {
     title: "Next.js Image Magic: The Way to Lightning-Fast Image Optimization",
     excerpt: "A tech-inspired song about Next.js Image optimization and performance improvements in web development",
     lyrics: `
