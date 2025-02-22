@@ -65,7 +65,7 @@ export const posts: Post[] = [
       title: "Next.js Image Magic",
       artist: "The Performance Optimizers",
       url: "/audio/__Next.js Image Magic_.mp3",
-      coverArt: "/assets/next.image.jpeg"
+      coverArt: "/assets/next.image1.png"
     },
     author: {
       name: "Alex Chen",
