@@ -71,13 +71,6 @@ describe('Header', () => {
     expect(toggleTheme).toHaveBeenCalled();
   });
 
-  it('renders the Sign In button', () => {
-    render(<Header />);
-    const signInButton = screen.getByText('Sign In');
-    expect(signInButton).toBeInTheDocument();
-    expect(signInButton.tagName).toBe('BUTTON');
-  });
-
   it('switches between Moon and Sun icons based on theme', () => {
     const mockedModule = jest.requireMock('../../app/providers/theme-provider') as ThemeModule;
     

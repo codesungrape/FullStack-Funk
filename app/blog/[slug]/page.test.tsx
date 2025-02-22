@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import BlogPost, { generateMetadata, generateStaticParams } from './page'
-import { posts } from '@/data/posts'
 import { notFound } from 'next/navigation'
+import type { ImageProps } from 'next/image'
 
 // Mock next/navigation
 jest.mock('next/navigation', () => ({
@@ -13,8 +13,17 @@ jest.mock('next/navigation', () => ({
 // Mock next/image
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: (props: any) => <img {...props} />
+  default: ({ src, alt, width, height, className }: ImageProps) => (
+    <img
+    src={src as string}
+    alt={alt}
+    width={width}
+    height={height}
+    className={className}
+    />
+  ) 
 }))
+
 
 // Mock Layout component
 jest.mock('@/components/page-layout/page-layout', () => ({
@@ -110,8 +119,10 @@ describe('BlogPost Page', () => {
     })
 
     it('should call notFound for invalid slug', () => {
-      render(<BlogPost params={{ slug: 'non-existent' }} />)
-      expect(notFound).toHaveBeenCalled()
+      expect(() => {
+        render(<BlogPost params={{ slug: "non-existent"}} />)
+      }).toThrow('NEXT_NOT_FOUND')
+      expect(notFound).toHaveBeenCalled();
     })
 
     it('should render within layout component', () => {

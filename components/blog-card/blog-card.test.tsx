@@ -66,11 +66,25 @@ describe('BlogCard', () => {
     expect(screen.getByText('♪')).toBeInTheDocument();
   });
 
-  it('renders lyrics preview correctly', () => {
+  
+  it('renders lyrics preview with correct number of lines', () => {
     render(<BlogCard post={mockPost} />);
-
+    
+    // Test section header
     expect(screen.getByText('Preview Lyrics:')).toBeInTheDocument();
-    expect(screen.getByText('Line 1\nLine 2\nLine 3\nLine 4\n...')).toBeInTheDocument();
+    
+    // Test preview content
+    const lyricsPreview = screen.getByTestId('lyrics-preview');
+    const previewLines = lyricsPreview.textContent?.split('\n');
+    
+    expect(previewLines).toHaveLength(5); // 4 lines + ellipsis
+    expect(previewLines?.slice(0, 4)).toEqual([
+      'Line 1',
+      'Line 2',
+      'Line 3',
+      'Line 4'
+    ]);
+    expect(previewLines?.[4]).toBe('...');
   });
 
   it('renders tags correctly', () => {

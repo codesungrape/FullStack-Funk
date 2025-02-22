@@ -24,7 +24,8 @@ export default function BlogCard({ post }: BlogCardProps) {
         
         <div className={styles.lyricsPreview}>
           <h4>Preview Lyrics:</h4>
-          <p>{post.lyrics.split('\n').slice(0, 4).join('\n')}...</p>
+          <p data-testid="lyrics-preview">
+          {`${post.lyrics.split('\n').slice(0, 4).join('\n')}\n...`}</p>
         </div>
 
         <div className={styles.tags}>

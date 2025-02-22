@@ -3,23 +3,43 @@ import Home from './page'
 import { posts } from '@/data/posts'
 
 // Define the type for BlogCard props based on usage in the component
-type BlogCardProps = {
-    slug: string
+type BlogCardProps = { 
+  post : {
     title: string
-    image: string
-    excerpt: string
-    author: {
-      name: string
-      avatar: string
-    }
-    date: string
-    readTime: string
+        excerpt: string
+        song: {
+            title: string
+            artist: string
+            url: string
+            coverArt: string
+        }
+        author: {
+            name: string
+            avatar: string
+        }
+        date: string
+        readTime: string
+        tags: string[]
+        slug: string
   }
+}
 
 // Mock the components and modules
 jest.mock('@/components/blog-card/blog-card', () => {
-  return function MockBlogCard(props: BlogCardProps) {
-    return <div data-testid="blog-card" {...props} />
+  return function MockBlogCard({post}: BlogCardProps) {
+    return (
+      <div 
+      data-testid="blog-card"
+      data-slug={post.slug}
+      data-title={post.title}
+      data-cover-art={post.song.coverArt}  // Changed this from image to coverArt
+      data-excerpt={post.excerpt}
+      data-author-name={post.author.name}
+      data-author-avatar={post.author.avatar}
+      data-date={post.date}
+      data-read-time={post.readTime}
+      />
+  )
   }
 })
 
@@ -42,7 +62,7 @@ describe('Home Page', () => {
       expect(heading).toHaveTextContent('Full-Stack Funk')
       
       const description = screen.getByText(
-        'Learn through song where code meets melody-web dev, and funky tech tunes!'
+        'Code concepts turned catchy tunes - sing along, learn along!'
       )
       expect(description).toBeInTheDocument()
     })
@@ -62,11 +82,19 @@ describe('Home Page', () => {
         render(<Home />)
         
         const blogCards = screen.getAllByTestId('blog-card')
-        
+
         blogCards.forEach((card, index) => {
-          expect(card).toHaveAttribute('slug', posts[index].slug)
-          // You can add more prop checks based on your BlogCard component props
-        })
+          const post = posts[index]
+          console.log('Full post object:', JSON.stringify(post, null, 2))
+
+          expect(card).toHaveAttribute('data-slug', post.slug)
+          expect(card).toHaveAttribute('data-title', post.title)
+          expect(card).toHaveAttribute('data-excerpt', post.excerpt)
+          expect(card).toHaveAttribute('data-author-name', post.author.name)
+          expect(card).toHaveAttribute('data-author-avatar', post.author.avatar)
+          expect(card).toHaveAttribute('data-date', post.date)
+          expect(card).toHaveAttribute('data-read-time', post.readTime)
+      })
     })
     it('renders within Layout component', () => {
         render(<Home />)
