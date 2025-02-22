@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import styles from './page.module.css'
 import { posts } from '@/data/posts'
-import Layout from '@/components/page-layout/Page-layout'
+import Layout from '@/components/page-layout/page-layout'
 import { Metadata } from 'next'
 
 type Props = {

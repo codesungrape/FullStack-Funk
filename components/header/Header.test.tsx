@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { jest } from '@jest/globals';
 import type { ReactNode } from 'react';
-import Header from './Header';
+import Header from './header';
 
 // Define the type for our mocked useTheme
 type UseThemeReturn = {

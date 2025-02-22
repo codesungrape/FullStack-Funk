@@ -1,7 +1,7 @@
 // page-layout.test.tsx
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import PageLayout from './Page-layout';
+import PageLayout from './page-layout';
 import styles from "./page-layout.module.css"
 
 // Mock the Sidebar component
