@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 import BlogPost, { generateMetadata, generateStaticParams } from './page'
 import { notFound } from 'next/navigation'
 import type { ImageProps } from 'next/image'
+import  Image from 'next/image'
 
 // Mock next/navigation
 jest.mock('next/navigation', () => ({
@@ -14,7 +15,7 @@ jest.mock('next/navigation', () => ({
 jest.mock('next/image', () => ({
   __esModule: true,
   default: ({ src, alt, width, height, className }: ImageProps) => (
-    <img
+    <Image
     src={src as string}
     alt={alt}
     width={width}

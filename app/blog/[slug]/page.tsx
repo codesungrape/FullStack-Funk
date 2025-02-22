@@ -1,3 +1,18 @@
+/* ERROR MEssage
+ * (base) ➜  educational-blog git:(main) ✗ npm run lint
+
+> my-v0-project@0.1.0 lint
+> next lint
+
+
+./app/blog/[slug]/page.test.tsx
+17:5  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
+(base) ➜  educational-blog git:(main) ✗ 
+ */
+
+
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import styles from './page.module.css'

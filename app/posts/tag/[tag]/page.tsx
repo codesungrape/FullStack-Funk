@@ -11,7 +11,7 @@ export default function TagPage({ params }: { params: { tag: string } }) {
 
     return (
         <div>
-            <h1>Posts tagged with "{tag}"</h1>
+            <h1>Posts tagged with &apos;{tag}&apos;</h1>
             <div>
                 {relatedPosts.map(post => (
                     <BlogCard key={post.slug} post={post} />
