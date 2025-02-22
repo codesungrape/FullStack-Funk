@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import BlogCard from './blog-card';
+import BlogCard from './Blog-card';
 import { Post } from '@/data/posts';
 import styles from './blog-card.module.css';
 

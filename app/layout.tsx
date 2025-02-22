@@ -1,6 +1,6 @@
 import type React from "react"
 import { Inter } from "next/font/google"
-import Header from "@/components/header/header"
+import Header from "@/components/header/Header"
 import { ThemeProvider } from "@/app/providers/theme-provider"
 import "./globals.css"
 

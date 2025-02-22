@@ -1,5 +1,5 @@
-import BlogCard from "@/components/blog-card/blog-card"
-import Layout from "@/components/page-layout/page-layout"
+import BlogCard from "@/components/blog-card/Blog-card"
+import Layout from "@/components/page-layout/Page-layout"
 import styles from "./page.module.css"
 import { posts } from "@/data/posts"
 
