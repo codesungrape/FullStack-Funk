@@ -76,8 +76,6 @@ export const posts: Post[] = [
       "JavaScript",
       "Naming Conventions",
       "Best Practices",
-      "Educational",
-      "Programming Songs",
       "Bubblegum-pop"
     ],
     slug: "react-naming-convention-song"

@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 import Image from "next/image"
 import styles from "./blog-card.module.css"
@@ -8,6 +10,13 @@ type BlogCardProps = {
 }
 
 export default function BlogCard({ post }: BlogCardProps) {
+
+  // prevent event bubbling when clking tags 
+  const handleTagClick = (e: React.MouseEvent, tag: string) => {
+    e.preventDefault(); 
+    window.location.href = `/posts/tag/${encodeURIComponent(tag)}`
+  }
+
   return (
     <Link href={`/blog/${post.slug}`} className={styles.card}>
       <div className={styles.songSection}>
@@ -30,9 +39,13 @@ export default function BlogCard({ post }: BlogCardProps) {
 
         <div className={styles.tags}>
           {post.tags.map((tag) => (
-            <span key={tag} className={styles.tag}>
+            <button 
+              key={tag} 
+              className={styles.tag}
+              onClick={(e) => handleTagClick(e, tag)}
+            >
               {tag}
-            </span>
+            </button>
           ))}
         </div>
 

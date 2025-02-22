@@ -38,7 +38,7 @@
     "**/*.tsx",
     "types/test.d.ts",
     ".next/types/**/*.ts"
-  ],
+, "components/tag-list"  ],
   "exclude": [
     "node_modules"
   ]
