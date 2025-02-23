@@ -7,7 +7,7 @@ export default function TagPage({ params }: { params: { tag: string } }) {
     const tag = decodeURIComponent(params.tag);
 
     const relatedPosts = posts.filter( post => 
-        post.tags.includes(tag)
+        post.tags.some(postTag => postTag.toLowerCase() === tag.toLowerCase())
     );
 
     return (
@@ -21,3 +21,4 @@ export default function TagPage({ params }: { params: { tag: string } }) {
         </div>
     )
 }
+
