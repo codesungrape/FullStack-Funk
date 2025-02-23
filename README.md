@@ -13,17 +13,17 @@ Responsive layout with module CSS
 
 ### Core Architecture
 
-Next.js with TypeScript
-Module CSS for scalable styling
-Dynamic routing for posts (app/page/[slug]/posts)
-Tag-based navigation system (app/posts/tag/[tag]/page.tsx)
+- Next.js with TypeScript
+- Module CSS for scalable styling
+- Dynamic routing for posts (app/page/[slug]/posts)
+- Tag-based navigation system (app/posts/tag/[tag]/page.tsx)
 
 ### Development Approach
 
-Rapid prototyping using v0.dev for boilerplate generation
-CI/CD pipeline with comprehensive testing suite
-Content generation using Suno-ai for educational songs
-Deployed on Vercel for immediate accessibility
+- Rapid prototyping using v0.dev for boilerplate generation
+- CI/CD pipeline with comprehensive testing suite
+- Content generation using Suno-ai for educational songs
+- Deployed on Vercel for immediate accessibility
 
 ## Current Limitations
 
