@@ -1,5 +1,6 @@
 import { posts } from '@/data/posts';
 import BlogCard from '@/components/blog-card/blog-card';
+import styles from './page.module.css'
 
 
 export default function TagPage({ params }: { params: { tag: string } }) {
@@ -10,14 +11,13 @@ export default function TagPage({ params }: { params: { tag: string } }) {
     );
 
     return (
-        <div>
+        <div className={styles.tagPage}>
             <h1>Posts tagged with &apos;{tag}&apos;</h1>
-            <div>
+            <div className={styles.postGrid}>
                 {relatedPosts.map(post => (
                     <BlogCard key={post.slug} post={post} />
                 ))}
             </div>
         </div>
     )
-
 }
