@@ -85,7 +85,7 @@ describe('Home Page', () => {
 
         blogCards.forEach((card, index) => {
           const post = posts[index]
-          console.log('Full post object:', JSON.stringify(post, null, 2))
+          //console.log('Full post object:', JSON.stringify(post, null, 2))
 
           expect(card).toHaveAttribute('data-slug', post.slug)
           expect(card).toHaveAttribute('data-title', post.title)

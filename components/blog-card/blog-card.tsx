@@ -22,8 +22,8 @@ export default function BlogCard({ post }: BlogCardProps) {
       <div className={styles.songSection}>
         <div className={styles.songInfo}>
           <span className={styles.songIcon}>♪</span>
-          <h3 className={styles.songTitle}>{post.song.title}</h3>
-          <p className={styles.artist}>{post.song.artist}</p>
+          {/* <h3 className={styles.songTitle}>{post.song.title}</h3>
+          <p className={styles.artist}>{post.song.artist}</p> */}
         </div>
       </div>
 
