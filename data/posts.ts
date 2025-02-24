@@ -20,6 +20,69 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    title: "Vue.js: The Framework Song",
+    excerpt: "A catchy tune explaining Vue.js concepts including templates, components, and data binding directives.",
+    lyrics: `
+  Progressive framework on the rise 
+  Single file components, what a surprise 
+  Template, Script, and Style in one place 
+  Making web development a smoother race
+  
+  Vue, Vue, Vue dot js 
+  Reactive binding made with ease 
+  Vue, Vue, Vue dot js
+  Building UIs with expertise
+  
+  Template shows what users will see 
+  HTML structure, as simple as can be 
+  Script brings logic to the game 
+  JavaScript powers, Vue claims its fame
+  
+  Style your components, make them shine 
+  Scoped attributes keep them in line 
+  No more CSS bleeding everywhere 
+  Component styling with perfect care
+  
+  Single File Components are the Vue philosophy 
+  Encapsulation and modularity 
+  Everything together, logical and clean 
+  The most elegant framework I've ever seen
+  
+  V-bind connects your data to the view 
+  Colons make it shorter, that's true 
+  Binding HTML, keeping it reactive 
+  Making your interfaces more attractive
+  
+  Binding attributes is what we do 
+  Sources, links, and buttons too 
+  Binding classes for your UI states 
+  Active, error, success – it's all great!
+  
+  Vue, Vue, Vue dot js 
+  Reactive binding made with ease 
+  Vue, Vue, Vue dot js 
+  Building UIs with expertise
+  
+  From Evan You to you and me 
+  Vue makes coding fun, you'll see 
+  Progressive, simple, powerful too 
+  That's why developers say "I love Vue!"`,
+    song: {
+      title: "Vue.js: The Framework Song",
+      artist: "Sugar Rush",
+      url: "/audio/VuejsFrameworkSong.mp3",
+      coverArt: "/assets/SugarRush.webp"
+    },
+    author: {
+      name: "Code Harmony",
+      avatar: "/assets/SugarRush.webp",
+    },
+    date: "24-02-2025",
+    readTime: "3 min",
+    tags: ["Vue.js", "JavaScript", "Web Development", "Frontend", "Programming Music"],
+    slug: "vue-js-framework-song"
+  },
+  {
     title: "Master React Naming Conventions Through Song!",
     excerpt: "Learn the essential React naming conventions through this tune covering everything from PascalCase components to camelCase props, and event handling patterns.",
     lyrics: `
