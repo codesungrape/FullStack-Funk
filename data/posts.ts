@@ -20,6 +20,66 @@ export type Post = {
 
 export const posts: Post[] = [
   {
+    title: "Talkin' API Blues: A Developer's Lament",
+    excerpt: "A tongue-in-cheek musical journey through the trials and tribulations of working with the OpenAI API, from rate limits to token counts.",
+    lyrics: `
+    Woke up this morning, API key in hand 
+    Trying to make my model understand 
+    Got my OpenAI package installed with care 
+    Setting dangerouslyAllowBrowser 'cause I just don't care 
+    (But don't do that in production, no sir)
+    
+    It's the API Blues, yeah 
+    Async calls and waiting 
+    It's the API Blues, yeah 
+    While my response is generating
+    
+    Messages array, looking mighty fine 
+    System role setting the tone, keeping it in line 
+    "You're a helpful assistant," that's what I say 
+    User role carries my words, hope they find their way 
+    Token count rising, better keep an eye
+  
+    It's the API Blues, yeah 
+    Chat completions creating 
+    It's the API Blues, yeah 
+    Temperature controls what I'm stating
+    
+    Max tokens parameter keeps my answers tight 
+    Too many tokens and my wallet feels the bite 
+    Await that response, handle errors with grace 
+    Try-catch blocks save you from disgrace 
+    Response comes back, choice zero is where it's at
+    
+    (Spoken word over blues riff) 
+    You see, the thing about these API calls 
+    Is you gotta respect the rate limits 
+    Keep your keys secure 
+    And always check the docs 
+    When something ain't working right
+    
+    It's the API Blues, yeah 
+    But my app is finally working 
+    It's the API Blues, yeah 
+    No more developer smirking 
+    It's the API Blues... 
+    (And my response is complete)`,
+    song: {
+      title: "Talkin' API Blues",
+      artist: "Dev McKoder",
+      url: "/audio/Talkin' API Blues.mp3",
+      coverArt: "/assets/API-Blues.webp"
+    },
+    author: {
+      name: "Dev McKoder",
+      avatar: "/assets/API-Blues.webp"
+    },
+    date: "2025-02-20T09:30:00Z",
+    readTime: "3 min read",
+    tags: ["Tech Humor", "OpenAI", "API Development", "JavaScript", "Developer Life"],
+    slug: "talkin-api-blues"
+  },
+  {
     title: "Vue.js: The Framework Song",
     excerpt: "A catchy tune explaining Vue.js concepts including templates, components, and data binding directives.",
     lyrics: `
