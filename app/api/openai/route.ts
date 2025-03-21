@@ -41,43 +41,45 @@ export async function POST(request: Request) {
 
     // Create a ReadableStream to send the response
     const readableStream = new ReadableStream({
-        async start(controller) {
-            // Function to encode text chunks
-            const encoder = new TextEncoder();
+      async start(controller) {
+        // Function to encode text chunks
+        const encoder = new TextEncoder();
 
-            try {
-                let accumulatedContent = "";
+        try {
+          let accumulatedContent = "";
 
-                // Process each chunk as it arrives
-                for await (const chunk of stream) {
-                    const content = chunk.choices[0]?.delta?.content || "";
+          // Process each chunk as it arrives
+          for await (const chunk of stream) {
+            const content = chunk.choices[0]?.delta?.content || "";
 
-                    if (content) {
-                        accumulatedContent += content;
+            if (content) {
+              accumulatedContent += content; // eslint-disable-line @typescript-eslint/no-unused-vars
 
-                        // Send each piece as it arrives
-                        controller.enqueue(encoder.encode(`data: ${JSON.stringify({ lyrics: content })}\n\n`))
-                    }
-                }
-
-                // Send a done message
-                controller.enqueue(encoder.encode('data: [DONE]\n\n'));
-                controller.close();
+              // Send each piece as it arrives
+              controller.enqueue(
+                encoder.encode(
+                  `data: ${JSON.stringify({ lyrics: content })}\n\n`,
+                ),
+              );
             }
-            catch (error) {
-                controller.error(error)
-            }
+          }
+
+          // Send a done message
+          controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+          controller.close();
+        } catch (error) {
+          controller.error(error);
         }
-    })
-
+      },
+    });
 
     // return resposne
-    return new Response(readableStream, { 
-        headers: {
-            'Content-Type': 'text/event-stream',
-            'Cache-Control': 'no-cache',
-            'Connection': 'keep-alive',
-        }
+    return new Response(readableStream, {
+      headers: {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        Connection: "keep-alive",
+      },
     });
   } catch (error) {
     console.error("Error generating lyrics:", error);

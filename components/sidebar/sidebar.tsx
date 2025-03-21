@@ -1,6 +1,6 @@
 "use client";
-import styles from "./sidebar.module.css"; 
-import { useState, useEffect, FormEvent } from "react";
+import styles from "./sidebar.module.css";
+import { useState, FormEvent } from "react";
 
 export default function Sidebar() {
   const tags = [
@@ -47,37 +47,37 @@ export default function Sidebar() {
 
       // Check for streaming response
       const contentType = response.headers.get("Content-Type");
-      
+
       if (contentType && contentType.includes("text/event-stream")) {
         // Handle streaming response
         const reader = response.body?.getReader();
         if (!reader) throw new Error("Failed to get stream reader");
-        
+
         const decoder = new TextDecoder();
         let accumulatedLyrics = "";
-        
+
         try {
           while (true) {
             const { done, value } = await reader.read();
-            
+
             if (done) {
               break;
             }
-            
+
             // Decode the chunk
             const chunk = decoder.decode(value, { stream: true });
-            
+
             // Process each line
-            const lines = chunk.split('\n\n');
+            const lines = chunk.split("\n\n");
             for (const line of lines) {
-              if (line.startsWith('data: ')) {
+              if (line.startsWith("data: ")) {
                 const data = line.substring(6).trim();
-                
+
                 // Check if it's the done message
-                if (data === '[DONE]') {
+                if (data === "[DONE]") {
                   continue;
                 }
-                
+
                 try {
                   // Parse the JSON data
                   const parsedData = JSON.parse(data);
@@ -137,7 +137,9 @@ export default function Sidebar() {
           {/** if lyrics generation started, render conditionally */}
           {(isLoading || generatedLyrics) && (
             <div className={styles.lyricsResult}>
-              <h4>{isLoading ? "Generating Lyrics..." : "Generated Lyrics:"}</h4>
+              <h4>
+                {isLoading ? "Generating Lyrics..." : "Generated Lyrics:"}
+              </h4>
               <pre>{generatedLyrics}</pre>
             </div>
           )}
