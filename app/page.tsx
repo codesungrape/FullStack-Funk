@@ -1,8 +1,7 @@
-import BlogCard from "@/components/blog-card/blog-card"
-import Layout from "@/components/page-layout/page-layout"
-import styles from "./page.module.css"
-import { posts } from "@/data/posts"
-
+import BlogCard from "@/components/blog-card/blog-card";
+import Layout from "@/components/page-layout/page-layout";
+import styles from "./page.module.css";
+import { posts } from "@/data/posts";
 
 export default function Home() {
   return (
@@ -21,6 +20,5 @@ export default function Home() {
         </div>
       </section>
     </Layout>
-  )
+  );
 }
-

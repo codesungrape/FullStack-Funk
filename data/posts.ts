@@ -1,27 +1,28 @@
 export type Post = {
-  title: string
-  excerpt: string
-  lyrics: string  // Instead of general content
+  title: string;
+  excerpt: string;
+  lyrics: string; // Instead of general content
   song: {
-    title: string
-    artist: string
-    url: string
-    coverArt: string  // Instead of a general image
-  }
+    title: string;
+    artist: string;
+    url: string;
+    coverArt: string; // Instead of a general image
+  };
   author: {
-    name: string
-    avatar: string
-  }
-  date: string
-  readTime: string
-  tags: string[]
-  slug: string
-}
+    name: string;
+    avatar: string;
+  };
+  date: string;
+  readTime: string;
+  tags: string[];
+  slug: string;
+};
 
 export const posts: Post[] = [
   {
     title: "Talkin' API Blues: A Developer's Lament",
-    excerpt: "A tongue-in-cheek musical journey through the trials and tribulations of working with the OpenAI API, from rate limits to token counts.",
+    excerpt:
+      "A tongue-in-cheek musical journey through the trials and tribulations of working with the OpenAI API, from rate limits to token counts.",
     lyrics: `
     Woke up this morning, API key in hand 
     Trying to make my model understand 
@@ -68,20 +69,27 @@ export const posts: Post[] = [
       title: "Talkin' API Blues",
       artist: "Dev McKoder",
       url: "/audio/Talkin' API Blues.mp3",
-      coverArt: "/assets/API-Blues.webp"
+      coverArt: "/assets/API-Blues.webp",
     },
     author: {
       name: "Dev McKoder",
-      avatar: "/assets/API-Blues.webp"
+      avatar: "/assets/API-Blues.webp",
     },
     date: "2025-02-20T09:30:00Z",
     readTime: "3 min read",
-    tags: ["Tech Humor", "OpenAI", "API Development", "JavaScript", "Developer Life"],
-    slug: "talkin-api-blues"
+    tags: [
+      "Tech Humor",
+      "OpenAI",
+      "API Development",
+      "JavaScript",
+      "Developer Life",
+    ],
+    slug: "talkin-api-blues",
   },
   {
     title: "Vue.js: The Framework Song",
-    excerpt: "A catchy tune explaining Vue.js concepts including templates, components, and data binding directives.",
+    excerpt:
+      "A catchy tune explaining Vue.js concepts including templates, components, and data binding directives.",
     lyrics: `
   Progressive framework on the rise 
   Single file components, what a surprise 
@@ -131,7 +139,7 @@ export const posts: Post[] = [
       title: "Vue.js: The Framework Song",
       artist: "Sugar Rush",
       url: "/audio/VuejsFrameworkSong.mp3",
-      coverArt: "/assets/SugarRush.webp"
+      coverArt: "/assets/SugarRush.webp",
     },
     author: {
       name: "Code Harmony",
@@ -139,12 +147,19 @@ export const posts: Post[] = [
     },
     date: "24-02-2025",
     readTime: "3 min",
-    tags: ["Vue.js", "JavaScript", "Web Development", "Frontend", "Programming Music"],
-    slug: "vue-js-framework-song"
+    tags: [
+      "Vue.js",
+      "JavaScript",
+      "Web Development",
+      "Frontend",
+      "Programming Music",
+    ],
+    slug: "vue-js-framework-song",
   },
   {
     title: "Master React Naming Conventions Through Song!",
-    excerpt: "Learn the essential React naming conventions through this tune covering everything from PascalCase components to camelCase props, and event handling patterns.",
+    excerpt:
+      "Learn the essential React naming conventions through this tune covering everything from PascalCase components to camelCase props, and event handling patterns.",
     lyrics: `
   PascalCase is as simple as can be,
   For components, that's what you'll always see!
@@ -186,11 +201,11 @@ export const posts: Post[] = [
       title: "The React Naming Convention Song",
       artist: "The TypeScript Troubadours",
       url: "/audio/The React Naming Convention Song (1).mp3",
-      coverArt: "/assets/ReactFemaleSinger.jpg"
+      coverArt: "/assets/ReactFemaleSinger.jpg",
     },
     author: {
       name: "Cara and the PussyCats",
-      avatar: "/assets/ReactFemaleSinger.jpg"
+      avatar: "/assets/ReactFemaleSinger.jpg",
     },
     date: "2025-02-22",
     readTime: "3 min",
@@ -199,13 +214,14 @@ export const posts: Post[] = [
       "JavaScript",
       "Naming Conventions",
       "Best Practices",
-      "Bubblegum-pop"
+      "Bubblegum-pop",
     ],
-    slug: "react-naming-convention-song"
+    slug: "react-naming-convention-song",
   },
   {
     title: "Next.js Image Magic: The Way to Lightning-Fast Image Optimization",
-    excerpt: "A tech-inspired song about Next.js Image optimization and performance improvements in web development",
+    excerpt:
+      "A tech-inspired song about Next.js Image optimization and performance improvements in web development",
     lyrics: `
   Images loading slow, weighing down the site
   Layout shifts, pages just don't feel right
@@ -249,7 +265,7 @@ export const posts: Post[] = [
       title: "Next.js Image Magic",
       artist: "The Performance Optimizers",
       url: "/audio/__Next.js Image Magic_.mp3",
-      coverArt: "/assets/next.image1.png"
+      coverArt: "/assets/next.image1.png",
     },
     author: {
       name: "Alex Chen",
@@ -258,11 +274,12 @@ export const posts: Post[] = [
     date: "Feb 21, 2025",
     readTime: "4 min",
     tags: ["Next.js", "Performance", "Web Development", "Image Optimization"],
-    slug: "nextjs-image-magic-song"
+    slug: "nextjs-image-magic-song",
   },
   {
     title: "TypeScript Power: From JavaScript Chaos to Type Safety",
-    excerpt: "A musical journey through TypeScript's enhancement of JavaScript, where static typing brings clarity to your code",
+    excerpt:
+      "A musical journey through TypeScript's enhancement of JavaScript, where static typing brings clarity to your code",
     lyrics: `
   JavaScript was running loose, bugs were hard to trace
   Dynamic types, silent fails, breaking every place
@@ -310,7 +327,7 @@ export const posts: Post[] = [
       title: "Type Power",
       artist: "Jermiyah Wilson",
       url: "/audio/__TypePower.mp3",
-      coverArt: "/assets/JermiyahWilson.jpg"
+      coverArt: "/assets/JermiyahWilson.jpg",
     },
     author: {
       name: "Jermiyah Wilson",
@@ -319,11 +336,12 @@ export const posts: Post[] = [
     date: "Mar 10, 2024",
     readTime: "6 min",
     tags: ["TypeScript", "JavaScript", "Type Safety", "Development"],
-    slug: "typescript-power-type-safety"
+    slug: "typescript-power-type-safety",
   },
   {
     title: "Docker Groove: The Container Symphony",
-    excerpt: "A rhythmic exploration of Docker's containerization magic, from basic commands to deployment mastery",
+    excerpt:
+      "A rhythmic exploration of Docker's containerization magic, from basic commands to deployment mastery",
     lyrics: `
     Docker's here, what does it do?
     Packs your apps inside a crew!
@@ -376,7 +394,7 @@ export const posts: Post[] = [
       title: "Docker Groove",
       artist: "Ariane Bande",
       url: "/audio/Dockerfile Jam.mp3",
-      coverArt: "/assets/DockerSinger.jpg"  // Using placeholder instead
+      coverArt: "/assets/DockerSinger.jpg", // Using placeholder instead
     },
     author: {
       name: "Sarah Johnson",
@@ -385,11 +403,12 @@ export const posts: Post[] = [
     date: "Mar 15, 2024",
     readTime: "5 min",
     tags: ["React", "JavaScript", "Web Development"],
-    slug: "react-server-components-digital-flow"
+    slug: "react-server-components-digital-flow",
   },
   {
     title: "The TypeScript Type Annotations Song",
-    excerpt: "A melodic exploration of TypeScript's type system, from basic annotations to advanced generics, helping developers write safer code through the power of static typing",
+    excerpt:
+      "A melodic exploration of TypeScript's type system, from basic annotations to advanced generics, helping developers write safer code through the power of static typing",
     lyrics: `
   type User = { id: string }
   interface Props extends Thing
@@ -416,7 +435,7 @@ export const posts: Post[] = [
       title: "Type Annotations",
       artist: "The Static Typers",
       url: "/audio/The TypeScript Type Annotations Song (3).mp3",
-      coverArt: "/assets/TheStaticTypers.jpeg"
+      coverArt: "/assets/TheStaticTypers.jpeg",
     },
     author: {
       name: "Simon TypeScript",
@@ -424,7 +443,13 @@ export const posts: Post[] = [
     },
     date: "Feb 23, 2025",
     readTime: "3 min",
-    tags: ["TypeScript", "Programming", "Type Safety", "Development", "Code Poetry"],
-    slug: "typescript-type-annotations-song"
-  }
-]
+    tags: [
+      "TypeScript",
+      "Programming",
+      "Type Safety",
+      "Development",
+      "Code Poetry",
+    ],
+    slug: "typescript-type-annotations-song",
+  },
+];
