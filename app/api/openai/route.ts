@@ -24,8 +24,8 @@ export async function POST(request: Request) {
         Include verses and a chorus structure.
     `;
     // Call OpenAI API
-    const completion = await openAI.chat.completions.create({
-      model: "gpt-4-turbo",
+    const stream = await openAI.chat.completions.create({
+      model: "gpt-3.5-turbo",
       messages: [
         {
           role: "system",
@@ -36,13 +36,51 @@ export async function POST(request: Request) {
       ],
       max_tokens: 1000,
       temperature: 0.7, // Adjust for creativity vs. consistency
+      stream: true, // Enable streaming
     });
 
-    // extract generated lyrics
-    const lyrics = completion.choices[0].message.content;
+    // Create a ReadableStream to send the response
+    const readableStream = new ReadableStream({
+      async start(controller) {
+        // Function to encode text chunks
+        const encoder = new TextEncoder();
+
+        try {
+          let accumulatedContent = "";
+
+          // Process each chunk as it arrives
+          for await (const chunk of stream) {
+            const content = chunk.choices[0]?.delta?.content || "";
+
+            if (content) {
+              accumulatedContent += content; // eslint-disable-line @typescript-eslint/no-unused-vars
+
+              // Send each piece as it arrives
+              controller.enqueue(
+                encoder.encode(
+                  `data: ${JSON.stringify({ lyrics: content })}\n\n`,
+                ),
+              );
+            }
+          }
+
+          // Send a done message
+          controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+          controller.close();
+        } catch (error) {
+          controller.error(error);
+        }
+      },
+    });
 
     // return resposne
-    return Response.json({ lyrics });
+    return new Response(readableStream, {
+      headers: {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        Connection: "keep-alive",
+      },
+    });
   } catch (error) {
     console.error("Error generating lyrics:", error);
 
