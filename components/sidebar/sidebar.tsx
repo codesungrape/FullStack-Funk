@@ -1,7 +1,7 @@
 "use client";
 import styles from "./sidebar.module.css";
 import { useState } from "react";
-import { FormEvent } from 'react';
+import { FormEvent } from "react";
 
 export default function Sidebar() {
   const tags = [
@@ -19,7 +19,6 @@ export default function Sidebar() {
   const [studyNotes, setStudyNotes] = useState("");
   const [generatedLyrics, setGeneratedLyrics] = useState("");
   const [error, setError] = useState("");
- 
 
   //handleForm submission function
   async function handleLyricsGeneration(e: FormEvent<HTMLFormElement>) {
@@ -66,7 +65,9 @@ export default function Sidebar() {
   return (
     <aside className={styles.sidebar}>
       <div className={styles.section}>
-        <h3 className={styles.sectionTitle}>Let&apos;s Create Your Tech Tunes</h3>
+        <h3 className={styles.sectionTitle}>
+          Let&apos;s Create Your Tech Tunes
+        </h3>
         <form className={styles.submission} onSubmit={handleLyricsGeneration}>
           {/* <input 
             type="file" accept="audio/*" className={styles.fileInput} />
