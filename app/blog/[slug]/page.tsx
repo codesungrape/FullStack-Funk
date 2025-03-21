@@ -12,55 +12,54 @@ info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/d
 (base) ➜  educational-blog git:(main) ✗ 
  */
 
-
-import Image from 'next/image'
-import { notFound } from 'next/navigation'
-import styles from './page.module.css'
-import { posts } from '@/data/posts'
-import Layout from '@/components/page-layout/page-layout'
-import { Metadata } from 'next'
+import Image from "next/image";
+import { notFound } from "next/navigation";
+import styles from "./page.module.css";
+import { posts } from "@/data/posts";
+import Layout from "@/components/page-layout/page-layout";
+import { Metadata } from "next";
 
 type Props = {
   params: {
-    slug: string
-  }
-}
+    slug: string;
+  };
+};
 
 export function generateMetadata({ params }: Props): Metadata {
-  const post = posts.find((post) => post.slug === params.slug)
-  
+  const post = posts.find((post) => post.slug === params.slug);
+
   if (!post) {
     return {
-      title: 'Post Not Found',
-      description: 'The requested blog post could not be found'
-    }
+      title: "Post Not Found",
+      description: "The requested blog post could not be found",
+    };
   }
 
   return {
     title: `${post.song.title} - ${post.title}`,
-    description: post.excerpt
-  }
+    description: post.excerpt,
+  };
 }
 
 export function generateStaticParams() {
   return posts.map((post) => ({
-    slug: post.slug
-  }))
+    slug: post.slug,
+  }));
 }
 
 export default function BlogPost({ params }: Props) {
-  const post = posts.find((post) => post.slug === params.slug)
+  const post = posts.find((post) => post.slug === params.slug);
 
   if (!post) {
-    notFound()
+    notFound();
   }
 
   return (
     <Layout>
       <article className={styles.article}>
         <div className={styles.songHeader}>
-          <Image 
-            src={post.song.coverArt} 
+          <Image
+            src={post.song.coverArt}
             alt={`${post.song.title} cover art`}
             width={300}
             height={300}
@@ -80,14 +79,14 @@ export default function BlogPost({ params }: Props) {
             />
           </div>
         </div>
-        
+
         <div className={styles.content}>
           <h1>{post.title}</h1>
-          
+
           <div className={styles.metadata}>
             <div className={styles.author}>
-              <Image 
-                src={post.author.avatar} 
+              <Image
+                src={post.author.avatar}
                 alt={post.author.name}
                 width={40}
                 height={40}
@@ -101,7 +100,9 @@ export default function BlogPost({ params }: Props) {
 
           <div className={styles.tags}>
             {post.tags.map((tag) => (
-              <span key={tag} className={styles.tag}>{tag}</span>
+              <span key={tag} className={styles.tag}>
+                {tag}
+              </span>
             ))}
           </div>
 
@@ -112,12 +113,10 @@ export default function BlogPost({ params }: Props) {
 
           <div className={styles.lyrics}>
             <h3>Lyrics</h3>
-            <pre className={styles.lyricsText}>
-              {post.lyrics}
-            </pre>
+            <pre className={styles.lyricsText}>{post.lyrics}</pre>
           </div>
         </div>
       </article>
     </Layout>
-  )
+  );
 }

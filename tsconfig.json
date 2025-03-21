@@ -1,15 +1,7 @@
 {
   "compilerOptions": {
-    "types": [
-      "jest",
-      "@testing-library/jest-dom",
-      "node"
-    ],
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "types": ["jest", "@testing-library/jest-dom", "node"],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "target": "ES6",
     "skipLibCheck": true,
@@ -28,18 +20,15 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     "types/test.d.ts",
-    ".next/types/**/*.ts"
-, "components/tag-list"  ],
-  "exclude": [
-    "node_modules"
-  ]
+    ".next/types/**/*.ts",
+    "components/tag-list"
+  ],
+  "exclude": ["node_modules"]
 }
