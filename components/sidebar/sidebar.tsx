@@ -1,6 +1,7 @@
-"use client"
+"use client";
 import styles from "./sidebar.module.css";
 import { useState } from "react";
+import { FormEvent } from 'react';
 
 export default function Sidebar() {
   const tags = [
@@ -13,65 +14,59 @@ export default function Sidebar() {
     "Web Development",
   ];
 
-  // setup states for form inputs and API response 
+  // setup states for form inputs and API response
   const [isLoading, setIsLoading] = useState(false);
   const [studyNotes, setStudyNotes] = useState("");
-  const [generatedLyrics, setGeneratedLyrics] = useState("")
-  const [error, setError] = useState("")
-
+  const [generatedLyrics, setGeneratedLyrics] = useState("");
+  const [error, setError] = useState("");
+ 
 
   //handleForm submission function
-  async function handleLyricsGeneration(e: any) {
+  async function handleLyricsGeneration(e: FormEvent<HTMLFormElement>) {
     // standard practice: prevents re-freshing of browser page
     e.preventDefault();
 
-    // Reset states 
+    // Reset states
     setIsLoading(true);
     setError("");
-    setGeneratedLyrics("")
+    setGeneratedLyrics("");
 
-    //create form data object to be used for API request 
-    //FormData is a pre-existing object 
+    //create form data object to be used for API request
+    //FormData is a pre-existing object
     const formData = new FormData();
-    formData.append("studyNotes", studyNotes)
+    formData.append("studyNotes", studyNotes);
 
     // send HTTP request
     try {
       const response = await fetch("/api/openai", {
         method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          studyNotes
+          studyNotes,
         }),
-      })
+      });
 
       if (!response.ok) {
-        throw new Error("Failed to generate lyrics")
+        throw new Error("Failed to generate lyrics");
       }
 
       // if successful fetching response object
       const data = await response.json();
       setGeneratedLyrics(data.lyrics);
-    } 
-    catch (err){
+    } catch (err) {
       console.error("Error generating lyrics:", err);
       setError("Failed to generate lyrics. Please try again.");
     } finally {
       setIsLoading(false);
     }
-
-
-
-
   }
 
   return (
     <aside className={styles.sidebar}>
-
       <div className={styles.section}>
-        <h3 className={styles.sectionTitle}>Let's Create Your Tech Tunes</h3>
+        <h3 className={styles.sectionTitle}>Let&apos;s Create Your Tech Tunes</h3>
         <form className={styles.submission} onSubmit={handleLyricsGeneration}>
           {/* <input 
             type="file" accept="audio/*" className={styles.fileInput} />
@@ -80,18 +75,20 @@ export default function Sidebar() {
           </small> */}
 
           <p>
-          Got a coding concept that needs a melody? Create your tech-cational lyrics by adding your notes here. Our AI will transform your ideas into catchy, educational lyrics for you!
+            Got a coding concept that needs a melody? Create your tech-cational
+            lyrics by adding your notes here. Our AI will transform your ideas
+            into catchy, educational lyrics for you!
           </p>
-          <textarea 
-            placeholder="Add your study notes here..." 
-            rows={10} 
+          <textarea
+            placeholder="Add your study notes here..."
+            rows={10}
             value={studyNotes}
             onChange={(e) => setStudyNotes(e.target.value)}
           />
           <button type="submit" disabled={isLoading}>
             {isLoading ? "Generating..." : "Generate lyrics"}
           </button>
-          
+
           {/** if Error occures render conditionally */}
           {error && <p className={styles.error}>{error}</p>}
 
@@ -102,8 +99,6 @@ export default function Sidebar() {
               <pre>{generatedLyrics}</pre>
             </div>
           )}
-
-
         </form>
       </div>
 
@@ -130,7 +125,6 @@ export default function Sidebar() {
           ))}
         </div>
       </div>
-
     </aside>
   );
 }
