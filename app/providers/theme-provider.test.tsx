@@ -50,7 +50,7 @@ describe("ThemeProvider", () => {
     );
 
     // Restore original console.error
-    console.error = originalError
+    console.error = originalError;
   });
 });
 
