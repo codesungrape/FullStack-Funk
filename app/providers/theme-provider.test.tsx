@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { useTheme, ThemeProvider } from "./theme-provider";
-import { act } from "react-dom/test-utils";
+import { act } from "react";
 
 describe("ThemeProvider", () => {
   beforeEach(() => {
@@ -40,9 +40,17 @@ describe("ThemeProvider", () => {
     expect(document.documentElement).toHaveAttribute("data-theme", "dark");
   });
   it("throws an error if useTheme is used outside ThemeProvider", () => {
+    // save original console error
+    const originalError = console.error;
+    //Mock console.error to supress expected errors
+    console.error = jest.fn;
+
     expect(() => render(<TestComponent />)).toThrow(
       "useTheme must be used within a ThemeProvider",
     );
+
+    // Restore original console.error
+    console.error = originalError
   });
 });
 
