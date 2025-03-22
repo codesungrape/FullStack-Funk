@@ -123,7 +123,7 @@ describe("BlogPost Page", () => {
     it("should call notFound for invalid slug", () => {
       // Save original console.error
       const originalError = console.error;
-      
+
       // Mock console.error to suppress expected errors
       console.error = jest.fn();
       expect(() => {

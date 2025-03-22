@@ -24,19 +24,27 @@ jest.mock("@/app/providers/theme-provider", () => ({
 const TestLayout = ({ children }: { children: React.ReactNode }) => {
   // Get what's inside the layout, but don't wrap it in another div
   const layoutContent = RootLayout({ children }).props.children;
-  
+
   // If it's multiple children, wrap them; if it's a single component, use as is
   if (Array.isArray(layoutContent)) {
-    return <>{layoutContent.map((child, i) => 
-      child.type !== 'body' ? child : <div key={i}>{child.props.children}</div>
-    )}</>;
+    return (
+      <>
+        {layoutContent.map((child, i) =>
+          child.type !== "body" ? (
+            child
+          ) : (
+            <div key={i}>{child.props.children}</div>
+          ),
+        )}
+      </>
+    );
   }
-  
+
   // If it's a body tag, just return its children instead
-  if (layoutContent.type === 'body') {
+  if (layoutContent.type === "body") {
     return <div>{layoutContent.props.children}</div>;
   }
-  
+
   return layoutContent;
 };
 
