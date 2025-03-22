@@ -121,10 +121,18 @@ describe("BlogPost Page", () => {
     });
 
     it("should call notFound for invalid slug", () => {
+      // Save original console.error
+      const originalError = console.error;
+      
+      // Mock console.error to suppress expected errors
+      console.error = jest.fn();
       expect(() => {
         render(<BlogPost params={{ slug: "non-existent" }} />);
       }).toThrow("NEXT_NOT_FOUND");
       expect(notFound).toHaveBeenCalled();
+
+      // Restore original console.error
+      console.error = originalError;
     });
 
     it("should render within layout component", () => {
