@@ -3,7 +3,7 @@ import { act } from "react";
 import userEvent from "@testing-library/user-event";
 import Sidebar from "./sidebar";
 import "@testing-library/jest-dom";
-import { TextEncoder, TextDecoder } from "util";
+import { TextEncoder } from "util";
 
 // Mock TextEncoder/TextDecoder if not available in the test environment
 if (
@@ -36,6 +36,7 @@ global.fetch = mockFetch;
 // Helper to mock fetch responses
 const mockFetchResponse = (
   status: number,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any,
   contentType: string = "application/json",
 ): Promise<Response> => {
