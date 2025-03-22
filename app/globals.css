@@ -20,9 +20,9 @@
   --shadow-lg: 0 8px 32px rgba(22, 22, 22, 0.1);
 
   /* Spacing */
-  --container-width: 1200px;
+  --container-width: 1400px;
   --header-height: 70px;
-  --sidebar-width: 300px;
+  --sidebar-width: 500px;
   --gap: 2rem;
   --radius: 1rem;
 }
