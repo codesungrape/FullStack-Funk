@@ -43,7 +43,6 @@
   background: var(--gradient-1);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-
 }
 
 /* Common form styles */
@@ -203,7 +202,6 @@
   box-shadow: var(--shadow-sm);
   background: var(--accent);
 }
-
 
 /* Lyrics Result styles */
 .lyricsResult {
