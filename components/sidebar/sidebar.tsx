@@ -2,7 +2,6 @@
 import styles from "./sidebar.module.css";
 import { useState, FormEvent } from "react";
 
-
 export default function Sidebar() {
   const tags = [
     "JavaScript",
