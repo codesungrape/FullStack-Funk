@@ -3,28 +3,31 @@ import { act } from "react";
 import userEvent from "@testing-library/user-event";
 import Sidebar from "./sidebar";
 import "@testing-library/jest-dom";
-import { TextEncoder, TextDecoder } from 'util';
+import { TextEncoder, TextDecoder } from "util";
 
 // Mock TextEncoder/TextDecoder if not available in the test environment
-if (typeof global.TextEncoder === 'undefined' || typeof global.TextDecoder === 'undefined') {
-    class MockTextEncoder {
-      encode(text: string): Uint8Array {
-        return new Uint8Array(Buffer.from(text));
-      }
+if (
+  typeof global.TextEncoder === "undefined" ||
+  typeof global.TextDecoder === "undefined"
+) {
+  class MockTextEncoder {
+    encode(text: string): Uint8Array {
+      return new Uint8Array(Buffer.from(text));
     }
-    
-    class MockTextDecoder {
-      decode(buffer?: Uint8Array): string {
-        if (!buffer) return '';
-        return Buffer.from(buffer).toString();
-      }
-    }
-    
-    // @ts-ignore - Ignoring type mismatch for testing purposes
-    global.TextEncoder = MockTextEncoder;
-    // @ts-ignore - Ignoring type mismatch for testing purposes 
-    global.TextDecoder = MockTextDecoder;
   }
+
+  class MockTextDecoder {
+    decode(buffer?: Uint8Array): string {
+      if (!buffer) return "";
+      return Buffer.from(buffer).toString();
+    }
+  }
+
+  // @ts-expect-error - Ignoring type mismatch for testing purposes
+  global.TextEncoder = MockTextEncoder;
+  // @ts-expect-error - Ignoring type mismatch for testing purposes
+  global.TextDecoder = MockTextDecoder;
+}
 
 // Mock the fetch function
 const mockFetch = jest.fn() as jest.MockedFunction<typeof global.fetch>;
